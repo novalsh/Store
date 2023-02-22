@@ -41,7 +41,7 @@ export default {
   },
   async created() {
     const code = this.$route.params.id;
-    const result = await axios.get(`http://localhost:8000/api/products/${code} `)
+    const result = await axios.get(`http://localhost:8000/api/products/${code}`)
     this.product = result.data 
   }
 }
