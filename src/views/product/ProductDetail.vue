@@ -1,6 +1,7 @@
 <template>
   <div>
         <div id="page-wrap" v-if="product">
+          <h4 v-if="notif" class="notif">Item telah ditambahkan ke dalam keranjang</h4>
           <div id="img-wrap">
             <img :src="`http://localhost:8000${product.imageUrl}`" alt="">
           </div>
@@ -27,6 +28,7 @@ export default {
   data() {
     return {
       product: {}, 
+      notif: false
     }
   }, 
   methods: {
@@ -34,6 +36,7 @@ export default {
       await axios.post('http://localhost:8000/api/orders/update/user/1', {
         product: product
       }) 
+      this.notif = true
     }
   },
   async created() {
@@ -74,4 +77,11 @@ export default {
     top: 24px;
     right: 16px;
   } 
+
+  .notif {
+    background-color: #41B883;
+    color: white;
+    padding: 16px;
+    text-align: center;
+  }
 </style>
