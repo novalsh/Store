@@ -2,6 +2,7 @@
   <div>
     <div id="page-wrap">
       <h1>Shoping Cart</h1>
+      <h4 v-if="notif" class="notif">Item berhasil di hapus</h4>
       <CartItem v-for="item in cartItems" :key="item.id" :item="item" v-on:remove-item="removeFromCart($event)" />
       <h3 id="total-price">Total: Rp.{{ totalPrice }}.000</h3>
       <button id="checkout-button">Checkout</button>
@@ -39,6 +40,10 @@ export default {
         return item.code
       }).indexOf(product)
       this.cartItems.splice(indexCart, 1)
+      this.notif = true
+      setTimeout(() => {
+        this.notif = false
+      }, 2000)
     }
   },
   async created() {
@@ -70,5 +75,13 @@ h1 {
 
 #checkout-button {
   width: 100%;
+}
+.notif {
+  color: green;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  padding: 16px;
+  text-align: center;
 }
 </style>
