@@ -8,7 +8,7 @@
             <h1>{{ product.name }}</h1>
             <h3 id="id-price">Rp.{{ product.price }}</h3>
             <p>AverageRating:{{ product.averageRating }}</p>
-            <button id="add-to-cart">Add to Cart</button>
+            <button id="add-to-cart" @click="addToCart(product.code)">Add to Cart</button>
             <p>{{ product.description  }}</p>
           </div>
         </div>
@@ -29,6 +29,13 @@ export default {
       product: {}, 
     }
   }, 
+  methods: {
+    async addToCart(product){
+      await axios.post('http://localhost:8000/api/orders/update/user/1', {
+        product: product
+      }) 
+    }
+  },
   async created() {
     const code = this.$route.params.id;
     const result = await axios.get(`http://localhost:8000/api/products/${code} `)
@@ -36,6 +43,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
  #page-wrap {
